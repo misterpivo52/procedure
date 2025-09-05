@@ -1,1 +1,1 @@
-Procedural programming 2025 Makohon Vladislav
+Prоcedural programming 2025 Makohon Vladislav
