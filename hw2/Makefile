@@ -1,6 +1,7 @@
-CC=gcc
-CFLAGS=-Wall -Wextra -Werror -std=c99 -g
-calendar: calendar.c
-	$(CC) $(CFLAGS) -o calendar calendar.c
-cross:
-	arm-linux-gnueabihf-gcc $(CFLAGS) -o calendar_arm calendar.c
+all:
+	gcc main.c -o calendar.exe
+run: calendar.exe
+	./calendar.exe
+clean:
+	rm -f calendar.exe
+.PHONY: all run clean
