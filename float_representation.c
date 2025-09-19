@@ -23,23 +23,23 @@ int main() {
     int real_exponent = exponent_bits - 127;
     printf("Exponent value: %d\n", real_exponent);
 
-    double mantissa_value = 0.0;
+    float mantissa_value = 0.0f;
     for (int i = 0; i < 23; i++) {
-        if (mantissa_bits & (1 << (22 - i))) {
-            mantissa_value += 1.0 / (1 << (i + 1));
+        if (mantissa_bits & (1u << (22 - i))) {
+            mantissa_value += 1.0f / (1u << (i + 1));
         }
     }
     printf("Mantissa value: %.5f\n", mantissa_value);
 
-    double reconstructed = (sign_bit ? -1.0 : 1.0) * (1.0 + mantissa_value);
+    float reconstructed = (sign_bit ? -1.0f : 1.0f) * (1.0f + mantissa_value);
 
     if (real_exponent >= 0) {
         for (int i = 0; i < real_exponent; i++) {
-            reconstructed *= 2.0;
+            reconstructed *= 2.0f;
         }
     } else {
         for (int i = 0; i < -real_exponent; i++) {
-            reconstructed /= 2.0;
+            reconstructed /= 2.0f;
         }
     }
 
