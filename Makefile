@@ -1,12 +1,14 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2
-TARGET = practical
-SRC = practical.c
+CFLAGS = -Iinclude -Wall -Wextra -std=c99
+SRC = src/array_utils.c
 
-all: $(TARGET)
+all: demo tests
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+demo: demo/demo.c $(SRC)
+	$(CC) $(CFLAGS) demo/demo.c $(SRC) -o demo/demo
+
+tests: tests/tests.c $(SRC)
+	$(CC) $(CFLAGS) tests/tests.c $(SRC) -o tests/tests
 
 clean:
-	rm -f $(TARGET)
+	rm -f demo/demo tests/tests
