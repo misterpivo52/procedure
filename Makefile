@@ -1,12 +1,34 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -O2
-TARGET = practical
-SRC = practical.c
+CFLAGS = -Wall -Wextra
+LDFLAGS = -L. -lc_list
+LIB = c_list.dll
+IMPLIB = libc_list.a
+TARGETS = main.exe interactive.exe test.exe
 
-all: $(TARGET)
+.PHONY: all run-main run-interactive run-tests clean
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+all: $(TARGETS)
+
+%.exe: %.o $(LIB)
+	$(CC) $(CFLAGS) $< $(LDFLAGS) -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+c_list.o: c_list.c
+	$(CC) $(CFLAGS) -fPIC -c c_list.c -o c_list.o
+
+$(LIB): c_list.o
+	$(CC) -shared -o $(LIB) c_list.o -Wl,--out-implib,$(IMPLIB)
+
+run-main: main.exe
+	./main.exe
+
+run-interactive: interactive.exe
+	./interactive.exe
+
+run-tests: test.exe
+	./test.exe
 
 clean:
-	rm -f $(TARGET)
+	$(RM) *.o *.a *.dll *.so $(TARGETS)
