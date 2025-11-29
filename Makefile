@@ -1,12 +1,10 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -O2
-TARGET = practical
-SRC = practical.c
+CC = clang
+CFLAGS = -std=c99 -O2
 
-all: $(TARGET)
+all: attack
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+attack: crypto.c crypto.c crypto.h
+	$(CC) $(CFLAGS) attack.c crypto.c -o attack
 
 clean:
-	rm -f $(TARGET)
+	rm -f attack
